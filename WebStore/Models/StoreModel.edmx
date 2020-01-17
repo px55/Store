@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Store.dbo.workerAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="workerAccount">
+          <Key>
+            <PropertyRef Name="userID" />
+            <PropertyRef Name="username" />
+            <PropertyRef Name="password" />
+          </Key>
+          <Property Name="userID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="first_NM" Type="varchar" MaxLength="50" />
+          <Property Name="last_NM" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Store.dbo.workerInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="workerInfo">
+          <Key>
+            <PropertyRef Name="worker_ID" />
+          </Key>
+          <Property Name="worker_ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstNM" Type="varchar" MaxLength="50" />
+          <Property Name="lastNM" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="StoreModelStoreContainer">
+          <EntitySet Name="workerAccount" EntityType="Self.workerAccount" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [workerAccount].[userID] AS [userID], 
+    [workerAccount].[username] AS [username], 
+    [workerAccount].[password] AS [password], 
+    [workerAccount].[first_NM] AS [first_NM], 
+    [workerAccount].[last_NM] AS [last_NM], 
+    [workerAccount].[email] AS [email]
+    FROM [dbo].[workerAccount] AS [workerAccount]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="workerInfo" EntityType="Self.workerInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [workerInfo].[worker_ID] AS [worker_ID], 
+    [workerInfo].[firstNM] AS [firstNM], 
+    [workerInfo].[lastNM] AS [lastNM]
+    FROM [dbo].[workerInfo] AS [workerInfo]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="workerInfo">
+          <Key>
+            <PropertyRef Name="worker_ID" />
+          </Key>
+          <Property Name="worker_ID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstNM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastNM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="StoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="workerInfoes" EntityType="Self.workerInfo" />
+          <EntitySet Name="workerAccounts" EntityType="StoreModel.workerAccount" />
+        </EntityContainer>
+        <EntityType Name="workerAccount">
+          <Key>
+            <PropertyRef Name="userID" />
+            <PropertyRef Name="username" />
+            <PropertyRef Name="password" />
+          </Key>
+          <Property Name="userID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="first_NM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_NM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StoreModelStoreContainer" CdmEntityContainer="StoreEntities">
+          <EntitySetMapping Name="workerInfoes">
+            <EntityTypeMapping TypeName="StoreModel.workerInfo">
+              <MappingFragment StoreEntitySet="workerInfo">
+                <ScalarProperty Name="worker_ID" ColumnName="worker_ID" />
+                <ScalarProperty Name="firstNM" ColumnName="firstNM" />
+                <ScalarProperty Name="lastNM" ColumnName="lastNM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workerAccounts">
+            <EntityTypeMapping TypeName="StoreModel.workerAccount">
+              <MappingFragment StoreEntitySet="workerAccount">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="last_NM" ColumnName="last_NM" />
+                <ScalarProperty Name="first_NM" ColumnName="first_NM" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
