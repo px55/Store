@@ -38,15 +38,16 @@ namespace WebStore.Models
             using (var dbContext = new StoreEntities())
             {
                 var query = (from a in dbContext.workerAccounts
-                             select a.username).ToList();
-
-                var passwordQuery = (from a in dbContext.workerAccounts
-                                     select a.password).ToList();
+                             select a).ToList();
 
                 foreach(var item in query)
                 {
-                    newWorkerModel.username = item;
-                    newWorkerList.Add(newWorkerModel);
+                    var temp = new workerModel
+                    {
+                        username = item.username,
+                        password = item.password
+                    };
+                    newWorkerList.Add(temp);
                 }
 
                 return newWorkerList;
