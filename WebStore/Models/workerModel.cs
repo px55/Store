@@ -19,6 +19,7 @@ namespace WebStore.Models
         [DisplayName("Password:")]
         public string passwordInput { get; set; }
         public int user_ID { get; set; }
+        public bool is_true { get; set; }
 
         public workerModel returnWorkerID()
         {
@@ -55,6 +56,37 @@ namespace WebStore.Models
                     newWorkerList.Add(test);
                 }
                 return newWorkerList;
+            }
+        }
+
+        public bool LoginStatus(workerModel workerModelView)
+        {
+            try
+            {
+                workerModel newWorkerModelView = new workerModel();
+                newWorkerModelView = workerModelView;
+                bool result = false;
+                using (var dbContext = new StoreEntities())
+                {
+                    var grabAccQuery = (from a in dbContext.workerAccounts
+                                        where a.username == newWorkerModelView.usernameInput &&
+                                              a.password == newWorkerModelView.passwordInput  
+                                        select a).FirstOrDefault();
+
+                    if(grabAccQuery != null)
+                    {
+                        result = true;
+                        return result;
+                    }
+                    else
+                    {
+                        return result;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
     }

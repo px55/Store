@@ -22,9 +22,18 @@ namespace WebStore.Controllers
         [HttpPost]
         public JsonResult GetAccount(workerModel workerModelView)
         {
-            var model = workerModelView;
-            return Json(new { Data = model }, JsonRequestBehavior.AllowGet);
+            var data = false;
+            bool result = workerModelView.LoginStatus(workerModelView);
+            if (result)
+            {
+                return Json(new { Data = workerModelView }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { Data = data }, JsonRequestBehavior.AllowGet);
+            }   
         }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -37,6 +46,12 @@ namespace WebStore.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult ReturnUserInformation(workerModel workerModelView)
+        {
+
+            return PartialView("_Login");
         }
     }
 }

@@ -28,18 +28,29 @@
 
 <script>
 
+    var resultLogin = "";
+
     $(document).ready(function () {
         $('#btnLogin').click(function () {
             var userInput = $('#usernameTxt').val();
             var passInput = $('#passwordTxt').val();
 
-            alert('Username: ' + userInput + ' Password: ' + passInput);
+            var data = {
+                usernameInput: userInput,
+                passwordInput: passInput
+            }
+
+            CheckLogin(data);
+        })
+
+        function CheckLogin(data) {
 
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("GetAccount", "Home")",
                 dataType: "json",
-                data: JSON.stringify(storeDiv.data),
+                cache: false,
+                data: data,
                 success: function (data) {
                     console.log(data);
                 },
@@ -48,7 +59,8 @@
                     console.log(data);
                 }
             });
-        })
+        }
+
     });
 </script>
 
