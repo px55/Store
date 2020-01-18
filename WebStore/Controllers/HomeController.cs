@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using WebStore.Models;
 
 namespace WebStore.Controllers
@@ -18,7 +19,12 @@ namespace WebStore.Controllers
             test = workerModelView.getAccounts();
             return PartialView("_details", workerModelView);
         }
-
+        [HttpPost]
+        public JsonResult GetAccount(workerModel workerModelView)
+        {
+            var model = workerModelView;
+            return Json(new { Data = model }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
