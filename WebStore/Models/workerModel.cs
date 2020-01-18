@@ -19,7 +19,7 @@ namespace WebStore.Models
         [DisplayName("Password:")]
         public string passwordInput { get; set; }
         public int user_ID { get; set; }
-        public bool is_true { get; set; }
+        public bool isvalid { get; set; }
 
         public workerModel returnWorkerID()
         {

@@ -22,7 +22,7 @@ namespace WebStore.Controllers
         [HttpPost]
         public JsonResult GetAccount(workerModel workerModelView)
         {
-            var data = false;
+            workerModelView.isvalid = true;
             bool result = workerModelView.LoginStatus(workerModelView);
             if (result)
             {
@@ -30,7 +30,8 @@ namespace WebStore.Controllers
             }
             else
             {
-                return Json(new { Data = data }, JsonRequestBehavior.AllowGet);
+                workerModelView.isvalid = false;
+                return Json(new { Data = workerModelView}, JsonRequestBehavior.AllowGet);
             }   
         }
 
@@ -53,5 +54,6 @@ namespace WebStore.Controllers
 
             return PartialView("_Login");
         }
+
     }
 }
