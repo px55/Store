@@ -37,10 +37,14 @@
 
             var data = {
                 usernameInput: userInput,
-                passwordInput: passInput
+                passwordInput: passInput,
+                isvalid: true
             }
 
             CheckLogin(data);
+            if (data.isvalid != true) {
+                returnLogin(data)
+            }
         })
 
         function CheckLogin(data) {
@@ -60,7 +64,22 @@
                 }
             });
         }
+        function returnLogin(data) {
+            $.ajax({
+                url: "@Url.Action("ReturnUserInformation", "Home")",
+                type: 'POST',
+                contentType: 'application/json;',
+                data: data,
+                success: function (data) {
+                    alert('SUCCSESFUL');
+                },
+                error: function () {
+                    alert('ERROR');
+                }
 
+            });
+
+        }
     });
 </script>
 
