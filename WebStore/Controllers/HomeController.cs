@@ -14,10 +14,8 @@ namespace WebStore.Controllers
         {
             workerModel workerModelView = new workerModel();
             workerModelView = workerModelView.returnWorkerID();
-            List<workerModel> test = new List<workerModel>();
 
-            test = workerModelView.getAccounts();
-            return PartialView("_details", workerModelView);
+            return View();
         }
         [HttpPost]
         public JsonResult GetAccount(workerModel workerModelView)
@@ -26,33 +24,22 @@ namespace WebStore.Controllers
             bool result = workerModelView.LoginStatus(workerModelView);
             if (result)
             {
-                return Json(new { Data = workerModelView }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = result, message = "Success!", url = Url.Action("_details", "Home") });
             }
             else
             {
                 workerModelView.isvalid = false;
-                return Json(new { Data = workerModelView}, JsonRequestBehavior.AllowGet);
-            }   
+                return Json(new { status = result, message = "Failed!", url = Url.Action("_FailLogin", "Home") });
+            }
         }
-
-        public ActionResult About()
+        public ActionResult _details()
         {
-            ViewBag.Message = "Your application description page.";
-
+            workerModel workerModelView = new workerModel();
+            return PartialView("_details", workerModelView);
+        }
+        public ActionResult _FailLogin()
+        {
             return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult ReturnUserInformation(workerModel workerModelView)
-        {
-
-            return PartialView("_Login");
         }
 
     }
